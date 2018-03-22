@@ -1,0 +1,6 @@
+name: StaffMode
+version: 1
+author: Desle
+main: com.desle.staffmode.Main
+commands:
+    staffmode:
