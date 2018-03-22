@@ -6,7 +6,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.Event.Result;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -33,6 +33,21 @@ public class StaffModeEvents implements Listener {
 			e.setCancelled(true);
 	}
 	
+
+	@EventHandler
+	public void onDeath(PlayerDeathEvent e) {
+		Player player = e.getEntity();
+		StaffModePlayer staffModePlayer = StaffModePlayer.get(player, false);
+		
+		if (staffModePlayer == null)
+			return;
+		
+		if (!staffModePlayer.getStatus())
+			return;
+		
+		e.setKeepInventory(true);
+	}
+
 	
 	@EventHandler
 	public void onQuit(PlayerQuitEvent e) {
@@ -88,34 +103,6 @@ public class StaffModeEvents implements Listener {
 		
 		ActionItem actionItem = ItemType.get(item).getActionItem();
 		actionItem.onUse(player);
-		player.updateInventory();
-	}
-	
-	
-	
-	@EventHandler
-	public void onClick(InventoryClickEvent e) {
-		Player player = (Player) e.getWhoClicked();
-		
-		if (e.getCurrentItem() == null)
-			return;
-		
-		StaffModePlayer staffModePlayer = StaffModePlayer.get(player, false);
-		if (staffModePlayer == null)
-			return;
-		
-		if (!staffModePlayer.getStatus())
-			return;
-		
-		ItemType itemType = ItemType.get(e.getCurrentItem());
-		
-		if (itemType == null)
-			return;
-		
-		ActionItem actionItem = itemType.getActionItem();
-		actionItem.onUse(player);
-		
-		e.setResult(Result.DENY);
 		player.updateInventory();
 	}
 	
