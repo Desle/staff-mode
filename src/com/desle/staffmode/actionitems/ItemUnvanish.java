@@ -2,6 +2,7 @@ package com.desle.staffmode.actionitems;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
 import com.desle.staffmode.ActionItem;
@@ -20,5 +21,9 @@ public class ItemUnvanish extends ActionItem {
 		player.getInventory().setItem(slot, new ItemVanish().getItemStack());
 		
 		playSuccessSound(player);
+	}
+
+	@Override
+	public void onUse(Player player, Entity target) {
 	}
 }

@@ -9,6 +9,7 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
+import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
@@ -75,6 +76,33 @@ public class StaffModeEvents implements Listener {
 		if (staffModePlayer.getStatus())
 			e.setResult(Result.DENY);
 		
+		player.updateInventory();
+	}
+	
+	
+	@EventHandler
+	public void onUseEntity(PlayerInteractEntityEvent e) {
+		Player player = e.getPlayer();
+		StaffModePlayer staffModePlayer = StaffModePlayer.get(player, false);
+		
+		if (staffModePlayer == null)
+			return;
+		
+		if (!staffModePlayer.getStatus())
+			return;
+		
+		ItemStack item = e.getPlayer().getItemInHand();
+		
+		if (item == null)
+			return;
+		
+		if (ItemType.get(item) == null)
+			return;
+		
+		e.setCancelled(true);
+		
+		ActionItem actionItem = ItemType.get(item).getActionItem();
+		actionItem.onUse(player, e.getRightClicked());
 		player.updateInventory();
 	}
 	

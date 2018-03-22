@@ -5,6 +5,7 @@ import java.util.UUID;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
 import com.desle.staffmode.ActionItem;
@@ -30,6 +31,10 @@ public class ItemRandomTeleport extends ActionItem {
 	
 	private Player getRandomPlayer(UUID uuid) {
 	    return Bukkit.getOnlinePlayers().stream().filter(p -> !p.getUniqueId().equals(uuid)).findAny().get();
+	}
+
+	@Override
+	public void onUse(Player player, Entity target) {
 	}
 
 }

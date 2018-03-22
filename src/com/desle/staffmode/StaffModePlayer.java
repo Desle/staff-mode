@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -75,6 +76,7 @@ public class StaffModePlayer {
 	//when toggling mode on
 	public boolean load() {
 		Player player = Bukkit.getPlayer(this.uuid);
+		player.playSound(player.getLocation(), Sound.WOOD_CLICK, 1, 1);
 		
 		if (player == null || !player.isOnline())
 			return false;
@@ -99,6 +101,7 @@ public class StaffModePlayer {
 	//when toggling mode off
 	public boolean unload() {
 		Player player = Bukkit.getPlayer(this.uuid);
+		player.playSound(player.getLocation(), Sound.WOOD_CLICK, 1, 1);
 		
 		if (player == null || !player.isOnline())
 			return false;

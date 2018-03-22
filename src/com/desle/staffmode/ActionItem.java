@@ -7,6 +7,7 @@ import java.util.List;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -45,6 +46,7 @@ public abstract class ActionItem {
 	}
 	
 	public abstract void onUse(Player player);
+	public abstract void onUse(Player player, Entity target);
 	
 	public void playSuccessSound(Player player) {
 		player.playSound(player.getLocation(), Sound.WOOD_CLICK, 1, 1);

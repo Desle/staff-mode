@@ -4,3 +4,4 @@ author: Desle
 main: com.desle.staffmode.Main
 commands:
     staffmode:
+    sm:

@@ -6,7 +6,6 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
 import com.desle.staffmode.ActionItem;
-import com.desle.staffmode.EntityUtil;
 
 public class ItemFreeze extends ActionItem {
 
@@ -16,15 +15,17 @@ public class ItemFreeze extends ActionItem {
 
 	@Override
 	public void onUse(Player player) {
-		Entity targetEntity = EntityUtil.getPlayerInSight(player);
-		
-		if (targetEntity == null) {
+	}
+
+	@Override
+	public void onUse(Player player, Entity target) {		
+		if (!(target instanceof Player)) {
 			playErrorSound(player);
 			return;
 		}
 		
-		Player target = (Player) targetEntity;
-		player.performCommand("/freeze " + target.getName());
+		Player targetPlayer = (Player) target;
+		player.performCommand("/freeze " + targetPlayer.getName());
 		
 		playSuccessSound(player);
 	}

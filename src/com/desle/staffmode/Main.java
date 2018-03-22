@@ -23,6 +23,7 @@ public class Main extends JavaPlugin {
 	
 	public void initializeCommands() {
 		getCommand("staffmode").setExecutor(new CommandHandler());
+		getCommand("sm").setExecutor(new CommandHandler());
 	}
 	
 	public void initializeEvents() {
